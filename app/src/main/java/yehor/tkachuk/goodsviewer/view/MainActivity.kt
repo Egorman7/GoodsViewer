@@ -13,9 +13,5 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        button.setOnClickListener { viewModel.test() }
-        viewModel.click.observe(this, Observer {
-            text.append(it)
-        })
     }
 }
