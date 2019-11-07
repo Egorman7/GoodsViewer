@@ -3,4 +3,5 @@
     <dimen name="grid_16">16dp</dimen>
     <dimen name="text_16">16sp</dimen>
     <dimen name="grid_8">8dp</dimen>
+    <dimen name="text_24">24sp</dimen>
 </resources>
