@@ -2,14 +2,10 @@ package yehor.tkachuk.goodsviewer.data
 
 import io.reactivex.Single
 import yehor.tkachuk.goodsviewer.api.MainApi
-import yehor.tkachuk.goodsviewer.model.Good
 import yehor.tkachuk.goodsviewer.model.api.AuthRequest
 import yehor.tkachuk.goodsviewer.utils.UserManager
 
 class MainDataManagerImpl(private val api: MainApi, private val userManager: UserManager) : MainDataManager{
-    override fun getGoodsList(): Single<List<Good>> {
-        return api.getGoods()
-    }
 
     override fun performLogin(username: String, password: String): Single<Boolean> {
         return api.login(AuthRequest(username, password)).map { auth ->

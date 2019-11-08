@@ -5,7 +5,6 @@ import yehor.tkachuk.goodsviewer.model.Auth
 import yehor.tkachuk.goodsviewer.model.Good
 
 interface MainDataManager{
-    fun getGoodsList(): Single<List<Good>>
     fun performLogin(username: String, password: String): Single<Boolean>
     fun autoLogin(): Single<Boolean>
 }
