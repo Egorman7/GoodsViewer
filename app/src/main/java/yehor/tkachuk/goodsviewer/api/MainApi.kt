@@ -1,5 +1,4 @@
 package yehor.tkachuk.goodsviewer.api
-
 import io.reactivex.Single
 import retrofit2.http.*
 import yehor.tkachuk.goodsviewer.model.Auth
@@ -22,6 +21,7 @@ interface MainApi {
     fun login(@Body body: AuthRequest): Single<Auth>
 
     @GET("api/products/")
+
     fun getGoods(): Single<List<Good>>
 
     @POST("/api/reviews/{product_id}/")

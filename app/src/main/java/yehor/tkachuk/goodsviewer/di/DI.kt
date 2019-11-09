@@ -32,7 +32,7 @@ private val viewModelModule = module {
 
 private val dataModule = module {
     single<MainDataManager>{ MainDataManagerImpl(get(), get()) }
-    single<GoodsDataManager> { GoodsDataManagerImpl(get()) }
+    single<GoodsDataManager> { GoodsDataManagerImpl(get(), get()) }
 }
 
 private val apiModule = module {
