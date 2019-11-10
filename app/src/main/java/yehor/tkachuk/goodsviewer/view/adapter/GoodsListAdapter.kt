@@ -47,7 +47,7 @@ class GoodsListAdapter : RecyclerView.Adapter<GoodsListAdapter.ViewHolder>(){
         val lastSelected = selectedItem
         selectedItem = index
         if(lastSelected != -1){
-            notifyItemInserted(lastSelected)
+            notifyItemChanged(lastSelected)
         }
         notifyItemChanged(selectedItem)
     }

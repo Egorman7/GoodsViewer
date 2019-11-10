@@ -4,4 +4,6 @@
     <dimen name="text_16">16sp</dimen>
     <dimen name="grid_8">8dp</dimen>
     <dimen name="text_24">24sp</dimen>
+    <dimen name="grid_64">64dp</dimen>
+    <dimen name="grid_32">32dp</dimen>
 </resources>

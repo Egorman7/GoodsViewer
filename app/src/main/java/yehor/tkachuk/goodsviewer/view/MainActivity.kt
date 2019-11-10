@@ -28,4 +28,10 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
             .replace(R.id.main_frame, fragment, fragment::class.java.simpleName)
             .commit()
     }
+
+    override fun onBackPressed() {
+        if(!viewModel.expandIfCollapsed()) {
+            super.onBackPressed()
+        }
+    }
 }

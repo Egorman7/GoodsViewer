@@ -24,9 +24,9 @@ interface MainApi {
 
     fun getGoods(): Single<List<Good>>
 
-    @POST("/api/reviews/{product_id}/")
+    @POST("api/reviews/{product_id}")
     fun postComment(@Header("Authorization :") token: String, @Path("product_id") productId: Int, @Body body: PostCommentRequest): Single<CommentResponse>
 
-    @GET("/api/reviews/{product_id}/")
+    @GET("api/reviews/{product_id}")
     fun getComments(@Path("product_id") productId: Int): Single<List<Comment>>
 }
