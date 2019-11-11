@@ -26,6 +26,8 @@
         android:background="@color/colorLight"
         android:hint="@string/login_hint_username"
         android:padding="@dimen/grid_8"
+        android:maxLines="1"
+        android:lines="1"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/login_title"
         app:layout_constraintBottom_toTopOf="@id/login_input_password"
@@ -39,6 +41,8 @@
         android:background="@color/colorLight"
         android:hint="@string/login_hint_password"
         android:padding="@dimen/grid_8"
+        android:maxLines="1"
+        android:lines="1"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/login_input_username"
         app:layout_constraintBottom_toTopOf="@id/login_button_enter"/>

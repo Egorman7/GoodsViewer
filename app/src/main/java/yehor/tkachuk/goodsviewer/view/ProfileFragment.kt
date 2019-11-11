@@ -120,14 +120,7 @@ class ProfileFragment : BaseFragment<MainViewModel>(MainViewModel::class){
                 //tempFile = File(Environment.getExternalStorageDirectory(), "temp.jpg")
                 tempFile = File.createTempFile("temp", ".jpg", context?.filesDir)
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                    putExtra(
-                        MediaStore.EXTRA_OUTPUT,
-                        if(Build.VERSION.SDK_INT > 24){
-                            FileProvider.getUriForFile(it, AUTHORITIES, tempFile)
-                        } else {
-                            Uri.fromFile(tempFile)
-                        }
-                    )
+                    putExtra(MediaStore.EXTRA_OUTPUT,FileProvider.getUriForFile(it, AUTHORITIES, tempFile))
                 }
                 startActivityForResult(intent, REQUEST_CAMERA)
             }
@@ -182,11 +175,7 @@ class ProfileFragment : BaseFragment<MainViewModel>(MainViewModel::class){
                 }
                 REQUEST_CAMERA -> {
                     context?.also {
-                        val uri = if(Build.VERSION.SDK_INT > 24){
-                            FileProvider.getUriForFile(it, AUTHORITIES, tempFile)
-                        } else {
-                            Uri.fromFile(tempFile)
-                        }
+                        val uri = FileProvider.getUriForFile(it, AUTHORITIES, tempFile)
                         sharedViewModel.saveImage(uri.toString())
                     }
                 }

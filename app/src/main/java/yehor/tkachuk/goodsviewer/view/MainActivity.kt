@@ -25,7 +25,6 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
     companion object{
         private const val EXIT_INTERVAL = 2000L
     }
-
     private var lastPressTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +43,10 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
 
         viewModel.registerClicked.observe(this, Observer {
             setFragment(FragmentRegister())
+        })
+
+        viewModel.saved.observe(this, Observer {
+            setFragment(ListFragment())
         })
 
         viewModel.loggedIn.observe(this, Observer { result ->
@@ -82,8 +85,6 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
                 .circleCrop()
                 .into(main_drawer.drawer_profile_img)
         })
-
-        //TODO comments, bugfix, local saving, logging out
     }
 
     private fun setUpDrawer(){
@@ -147,6 +148,7 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
     }
 
     private fun loggedIn(){
+        setFragment(ListFragment())
         main_drawer.drawer_login.visibility = View.GONE
         main_drawer.drawer_logout.visibility = View.VISIBLE
         main_drawer.drawer_profile.visibility = View.VISIBLE

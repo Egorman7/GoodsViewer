@@ -12,6 +12,7 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
     val loggedIn = MutableLiveData<AuthResult>().apply { value = AuthResult.empty() }
     val expandList = SingleLiveEvent<Unit>()
     val registerClicked = SingleLiveEvent<Unit>()
+    val saved = SingleLiveEvent<Unit>()
 
     val profile = MutableLiveData<Profile>()
 
@@ -49,6 +50,7 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
         subscribe(dataManager.saveProfileData(name, surname),{
             profile.value = it
             loadProfile()
+            saved.call()
         })
     }
 

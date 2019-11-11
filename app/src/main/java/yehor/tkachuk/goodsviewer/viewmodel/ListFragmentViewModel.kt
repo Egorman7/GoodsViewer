@@ -12,6 +12,7 @@ class ListFragmentViewModel(private val dataManager: GoodsDataManager) : BaseVie
     val saveResult = SingleLiveEvent<SaveResult>()
 
     fun loadList(forceLoad: Boolean = false){
+        subscribe(dataManager.loadLocalList(),{})
         subscribe(dataManager.loadList(forceLoad),{
             listOfGoods.value = it
         }, {
