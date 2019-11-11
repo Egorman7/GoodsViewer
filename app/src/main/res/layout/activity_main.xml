@@ -7,7 +7,7 @@
     tools:context=".view.MainActivity"
     android:id="@+id/main_drawer_layout"
     android:background="@color/colorBackground"
-    tools:openDrawer="ed">
+    tools:openDrawer="end">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,5 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/colorBackgroundLight"/>
+        android:background="@color/colorBackgroundLight">
+        <include
+            android:id="@+id/main_drawer"
+            layout="@layout/drawer_list"/>
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

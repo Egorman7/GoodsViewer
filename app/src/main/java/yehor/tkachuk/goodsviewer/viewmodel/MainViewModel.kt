@@ -5,16 +5,57 @@ import yehor.tkachuk.goodsviewer.base.BaseViewModel
 import yehor.tkachuk.goodsviewer.data.GoodsDataManager
 import yehor.tkachuk.goodsviewer.data.MainDataManager
 import yehor.tkachuk.goodsviewer.model.Good
+import yehor.tkachuk.goodsviewer.model.Profile
 import yehor.tkachuk.goodsviewer.utils.SingleLiveEvent
 
 class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
     private var listCollapsed = false
-    val loggedIn = MutableLiveData<Boolean>()
+    val loggedIn = MutableLiveData<Boolean>().apply { value = false }
     val expandList = SingleLiveEvent<Unit>()
+    val registerClicked = SingleLiveEvent<Unit>()
+
+    val profile = MutableLiveData<Profile>()
 
     fun autoLogin(){
         subscribe(dataManager.autoLogin()){ logged ->
             loggedIn.value = logged
+        }
+    }
+
+    fun login(username: String, password: String){
+        subscribe(dataManager.performLogin(username, password)){
+            loggedIn.value = it
+        }
+    }
+
+    fun register(username: String, password: String){
+        subscribe(dataManager.register(username, password)){
+            loggedIn.value = it
+        }
+    }
+
+    fun loadProfile(){
+        subscribe(dataManager.loadProfile()){
+            profile.value = it
+        }
+    }
+
+    fun saveImage(string: String){
+        subscribe(dataManager.saveProfileImg(string)){
+            profile.value = it
+        }
+    }
+
+    fun saveProfile(name: String, surname: String){
+        subscribe(dataManager.saveProfileData(name, surname)){
+            profile.value = it
+            loggedIn.value = true
+        }
+    }
+
+    fun removeAvatar(){
+        complete(dataManager.removeAvatar()){
+            loadProfile()
         }
     }
 
@@ -32,5 +73,9 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
                 expandList.call()
             }
         }
+    }
+
+    fun clickRegister(){
+        registerClicked.call()
     }
 }

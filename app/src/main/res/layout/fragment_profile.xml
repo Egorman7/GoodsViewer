@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <ImageView
+        android:id="@+id/profile_img"
+        android:layout_width="260dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/grid_32"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6"
+        tools:src="@drawable/ic_account_no_ava" />
+
+    <ImageView
+        android:id="@+id/profile_img_add"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/profile_img"
+        app:layout_constraintStart_toStartOf="@id/profile_img"
+        app:layout_constraintEnd_toEndOf="@id/profile_img"
+        app:layout_constraintBottom_toBottomOf="@id/profile_img"
+        android:src="@drawable/ic_add_circle"
+        android:padding="@dimen/grid_32"/>
+
+    <ImageView
+        android:id="@+id/profile_img_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintCircle="@id/profile_img"
+        app:layout_constraintCircleAngle="45"
+        app:layout_constraintCircleRadius="130dp"
+        android:src="@android:drawable/ic_delete"
+        android:background="@drawable/bg_circle"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_32"
+        android:layout_marginTop="@dimen/grid_32"
+        android:layout_marginEnd="@dimen/grid_32"
+        android:backgroundTint="@android:color/white"
+        android:gravity="center"
+        android:hint="@string/profile_hint_name"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/colorLight"
+        android:textSize="@dimen/text_24"
+        app:layout_constraintTop_toBottomOf="@id/profile_img"
+        tools:text="John"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/profile_surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_32"
+        android:layout_marginTop="@dimen/grid_16"
+        android:layout_marginEnd="@dimen/grid_32"
+        android:backgroundTint="@android:color/white"
+        android:gravity="center"
+        android:hint="@string/profile_hint_surname"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/colorLight"
+        android:textSize="@dimen/text_24"
+        app:layout_constraintTop_toBottomOf="@id/profile_name"
+        tools:text="Doe"
+        android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/profile_button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/profile_button_save"
+        android:background="@color/colorLight"
+        android:layout_marginBottom="@dimen/grid_32"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

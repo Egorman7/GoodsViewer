@@ -1,6 +1,7 @@
 package yehor.tkachuk.goodsviewer.base
 
 import androidx.lifecycle.ViewModel
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.KoinComponent
@@ -17,5 +18,17 @@ abstract class BaseViewModel : ViewModel(), KoinComponent{
         disposables.add(single.subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.main())
             .subscribe(onSuccess, {errorHandler.handleError(it)}))
+    }
+
+    protected fun complete(completable: Completable, onFinish: () -> Unit){
+        disposables.add(completable.subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.main()).subscribe(onFinish, {
+                errorHandler.handleError(it)
+            }))
+    }
+
+    override fun onCleared() {
+        disposables.dispose()
+        super.onCleared()
     }
 }

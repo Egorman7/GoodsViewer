@@ -5,6 +5,8 @@ import io.reactivex.Single
 import yehor.tkachuk.goodsviewer.model.Profile
 
 interface ProfileManager {
-    fun saveProfile(profile: Profile): Completable
+    fun saveProfile(profile: Profile): Single<Profile>
     fun getProfile(): Single<Profile>
+    fun setAvatar(string: String): Single<Profile>
+    fun removeAvatar(): Completable
 }

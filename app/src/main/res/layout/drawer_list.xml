@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:background="@color/colorBackgroundLight">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_16">
+
+        <ImageView
+            android:id="@+id/drawer_profile_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/drawer_profile_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_24"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_profile_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/drawer_profile_img"
+            app:layout_constraintTop_toTopOf="@id/drawer_profile_img"
+            tools:text="Jonh Doe" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_2"
+        android:background="@color/colorBackground" />
+
+    <TextView
+        android:id="@+id/drawer_list"
+        style="@style/drawerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_list"
+        android:text="@string/drawer_list" />
+
+    <TextView
+        android:id="@+id/drawer_profile"
+        style="@style/drawerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_account"
+        android:text="@string/drawer_profile" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/drawer_logout"
+        style="@style/drawerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_log_out"
+        android:text="@string/drawer_logout" />
+
+    <TextView
+        android:id="@+id/drawer_login"
+        style="@style/drawerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_login"
+        android:text="@string/drawer_login" />
+
+</LinearLayout>

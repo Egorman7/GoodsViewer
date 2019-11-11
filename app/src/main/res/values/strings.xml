@@ -5,4 +5,18 @@
 
     <string name="page_title_detail">Details</string>
     <string name="page_title_comments">Comments</string>
+    <string name="login_title">Login</string>
+    <string name="login_hint_username">Username</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_button_enter">Enter</string>
+    <string name="login_not_registered"><u>Not registered?</u></string>
+    <string name="register_title">Registration</string>
+    <string name="register_button">Register</string>
+    <string name="drawer_list">List of goods</string>
+    <string name="drawer_login">Login</string>
+    <string name="drawer_profile">Profile</string>
+    <string name="drawer_logout">Log out</string>
+    <string name="profile_hint_name">Name</string>
+    <string name="profile_hint_surname">Surname</string>
+    <string name="profile_button_save">Save</string>
 </resources>

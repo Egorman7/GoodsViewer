@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/grid_64"
+    android:layout_marginEnd="@dimen/grid_64"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure want to delete photo?"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_16"
+        android:padding="@dimen/grid_8"
+        android:layout_marginTop="@dimen/grid_8"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/grid_16"
+        android:layout_marginBottom="@dimen/grid_8">
+        <TextView
+            android:id="@+id/dialog_remove_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLight"
+            android:text="Cancel"
+            android:textSize="@dimen/grid_16"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/dialog_remove_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLight"
+            android:text="OK"
+            android:textSize="@dimen/grid_16"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"/>
+    </LinearLayout>
+</LinearLayout>
