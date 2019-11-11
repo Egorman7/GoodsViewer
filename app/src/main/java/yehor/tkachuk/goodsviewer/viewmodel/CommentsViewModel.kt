@@ -11,15 +11,15 @@ class CommentsViewModel(private val dataManager: GoodsDataManager) : BaseViewMod
     val commentPosted = SingleLiveEvent<Unit>()
 
     fun loadComments(productId: Int){
-        subscribe(dataManager.loadComments(productId)){
+        subscribe(dataManager.loadComments(productId),{
             commentList.value = it
-        }
+        })
     }
 
     fun postComment(productId: Int, text: String, rating: Int){
-        subscribe(dataManager.postComment(productId, text, rating)){
+        subscribe(dataManager.postComment(productId, text, rating),{
             commentPosted.call()
             loadComments(productId)
-        }
+        })
     }
 }

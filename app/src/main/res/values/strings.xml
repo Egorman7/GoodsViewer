@@ -19,7 +19,7 @@
     <string name="profile_hint_name">Name</string>
     <string name="profile_hint_surname">Surname</string>
     <string name="profile_button_save">Save</string>
-    <string name="toast_exit">Tap "Back" one more time to exit</string>
+    <string name="toast_exit">Tap Back one more time to exit</string>
     <string name="toast_register_success">Registration successful!</string>
     <string name="toast_register_error">Registration error!</string>
     <string name="toast_login_success">Welcome to Goods Viewer!</string>

@@ -14,10 +14,11 @@ abstract class BaseViewModel : ViewModel(), KoinComponent{
     private val schedulersProvider by inject<SchedulersProvider>()
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    protected fun <T>subscribe(single: Single<T>, onSuccess: (T) -> Unit){
+    protected fun <T>subscribe(single: Single<T>, onSuccess: (T) -> Unit,
+                               onError: (Throwable) -> Unit = {errorHandler.handleError(it)}){
         disposables.add(single.subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.main())
-            .subscribe(onSuccess, {errorHandler.handleError(it)}))
+            .subscribe(onSuccess, onError))
     }
 
     protected fun complete(completable: Completable, onFinish: () -> Unit){

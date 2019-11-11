@@ -102,6 +102,10 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
     }
 
     override fun onBackPressed() {
+        if(main_drawer_layout.isDrawerOpen(GravityCompat.END)){
+            main_drawer_layout.closeDrawer(GravityCompat.END)
+            return
+        }
         if(!viewModel.expandIfCollapsed()) {
             if(lastPressTime + EXIT_INTERVAL > System.currentTimeMillis()) {
                 super.onBackPressed()

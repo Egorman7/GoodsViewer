@@ -16,44 +16,40 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
     val profile = MutableLiveData<Profile>()
 
     fun autoLogin(){
-        subscribe(dataManager.autoLogin()){ logged ->
-            loggedIn.value = logged.also {
-                if(it.state == AuthResult.State.LOGIN && !it.success){
-                    logOut()
-                }
-            }
-        }
+        subscribe(dataManager.autoLogin(),{ logged ->
+            loggedIn.value = logged
+        })
     }
 
     fun login(username: String, password: String){
-        subscribe(dataManager.performLogin(username, password)){
+        subscribe(dataManager.performLogin(username, password),{
             loggedIn.value = it
-        }
+        })
     }
 
     fun register(username: String, password: String){
-        subscribe(dataManager.register(username, password)){
+        subscribe(dataManager.register(username, password),{
             loggedIn.value = it
-        }
+        })
     }
 
     fun loadProfile(){
-        subscribe(dataManager.loadProfile()){
+        subscribe(dataManager.loadProfile(),{
             profile.value = it
-        }
+        })
     }
 
     fun saveImage(string: String){
-        subscribe(dataManager.saveProfileImg(string)){
+        subscribe(dataManager.saveProfileImg(string),{
             profile.value = it
-        }
+        })
     }
 
     fun saveProfile(name: String, surname: String){
-        subscribe(dataManager.saveProfileData(name, surname)){
+        subscribe(dataManager.saveProfileData(name, surname),{
             profile.value = it
             loadProfile()
-        }
+        })
     }
 
     fun removeAvatar(){

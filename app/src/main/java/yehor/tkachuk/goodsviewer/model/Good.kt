@@ -14,4 +14,8 @@ data class Good(
     fun getImageUrl(): Uri{
         return Uri.parse(MainApi.IMAGES_URL + img)
     }
+
+    fun getLocalImage(): String{
+        return "${id}.jpg"
+    }
 }

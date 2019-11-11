@@ -10,10 +10,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import yehor.tkachuk.goodsviewer.api.MainApi
 import yehor.tkachuk.goodsviewer.data.*
-import yehor.tkachuk.goodsviewer.utils.ProfileManager
-import yehor.tkachuk.goodsviewer.utils.ProfileManagerImpl
-import yehor.tkachuk.goodsviewer.utils.UserManager
-import yehor.tkachuk.goodsviewer.utils.UserManagerImpl
+import yehor.tkachuk.goodsviewer.utils.*
 import yehor.tkachuk.goodsviewer.utils.rx.ErrorHandler
 import yehor.tkachuk.goodsviewer.utils.rx.ErrorHandlerImpl
 import yehor.tkachuk.goodsviewer.utils.rx.SchedulersProvider
@@ -31,7 +28,7 @@ private val viewModelModule = module {
 
 private val dataModule = module {
     single<MainDataManager>{ MainDataManagerImpl(get(), get(), get()) }
-    single<GoodsDataManager> { GoodsDataManagerImpl(get(), get()) }
+    single<GoodsDataManager> { GoodsDataManagerImpl(get(), get(), get()) }
 }
 
 private val apiModule = module {
@@ -48,6 +45,7 @@ private val utilModule = module {
     single<UserManager> { UserManagerImpl(get()) }
     single<ProfileManager> { ProfileManagerImpl(androidContext(), get()) }
     single<SharedPreferences> { androidContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE) }
+    single<LocalDataManager> { LocalDataManagerImpl(androidContext()) }
 }
 
 val moduleList = listOf(viewModelModule, dataModule, apiModule, utilModule)
