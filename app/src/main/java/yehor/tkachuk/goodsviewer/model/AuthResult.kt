@@ -2,7 +2,7 @@ package yehor.tkachuk.goodsviewer.model
 
 class AuthResult private constructor(
     val state: State,
-    val success: Boolean = true
+    val success: Boolean = false
 ){
     companion object{
         fun empty(): AuthResult{

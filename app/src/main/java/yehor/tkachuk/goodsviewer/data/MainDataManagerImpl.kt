@@ -32,7 +32,6 @@ class MainDataManagerImpl(private val api: MainApi, private val userManager: Use
                     userManager.saveToken(auth.token)
                     AuthResult.loggedIn()
                 } else {
-                    userManager.clear()
                     AuthResult.notLogged()
                 }
             }

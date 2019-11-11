@@ -22,14 +22,16 @@ class ListDetailFragment : BaseFragment<ListFragmentViewModel>(ListFragmentViewM
         private const val KEY_GOOD_TITLE = "title"
         private const val KEY_GOOD_TEXT = "text"
         private const val KEY_GOOD_IMG = "img"
+        private const val KEY_LOGGED_IN = "loggedIn"
 
-        fun createInstance(good: Good): ListDetailFragment{
+        fun createInstance(good: Good, loggedIn: Boolean): ListDetailFragment{
             return ListDetailFragment().apply {
                 arguments = Bundle().also { bundle ->
                     bundle.putInt(KEY_GOOD_ID, good.id)
                     bundle.putString(KEY_GOOD_TITLE, good.title)
                     bundle.putString(KEY_GOOD_TEXT, good.text)
                     bundle.putString(KEY_GOOD_IMG, good.getImageUrl().toString())
+                    bundle.putBoolean(KEY_LOGGED_IN, loggedIn)
                 }
             }
         }
@@ -58,6 +60,9 @@ class ListDetailFragment : BaseFragment<ListFragmentViewModel>(ListFragmentViewM
                 .into(good_detail_image)
             good_detail_button_save.setOnClickListener {
                 sharedViewModel.saveGood(good)
+            }
+            if(!args.getBoolean(KEY_LOGGED_IN)){
+                good_detail_button_save.visibility = View.GONE
             }
         }
         sharedViewModel.saveResult.observe(viewLifecycleOwner, Observer { result ->

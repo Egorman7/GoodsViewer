@@ -26,6 +26,8 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
         getString(R.string.page_title_detail), getString(R.string.page_title_comments)
     ))}
 
+    private var loggedIn = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return layoutInflater.inflate(R.layout.fragment_good_list, container, false)
     }
@@ -44,6 +46,10 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
 
         sharedViewModel.expandList.observe(viewLifecycleOwner, Observer {
             hideDetailContainer()
+        })
+
+        sharedViewModel.loggedIn.observe(viewLifecycleOwner, Observer {
+            loggedIn = it.success
         })
 
         list_swipe_refresh.setOnRefreshListener {
@@ -69,7 +75,7 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
         list_detail_container.visibility = View.VISIBLE
         list_detail_container.alpha = 1f
         pagerAdapter.setFragments(listOf(
-            ListDetailFragment.createInstance(good),
+            ListDetailFragment.createInstance(good, loggedIn),
             ListCommentsFragment.createInstance(good)
         ))
         sharedViewModel.setCollapsed()
