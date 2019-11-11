@@ -29,6 +29,7 @@
         android:clickable="false"
         android:focusable="false"
         android:rating="3"
+        android:isIndicator="true"
         android:progressTint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_comment_user"

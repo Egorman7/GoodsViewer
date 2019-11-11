@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorBackground"
-    android:layout_marginStart="@dimen/grid_64"
-    android:layout_marginEnd="@dimen/grid_64">
+    android:layout_height="match_parent"
+    android:padding="@dimen/grid_64">
 
-    <TextView
-        android:id="@+id/dialog_select_image_camera"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_photo_camera"
-        android:padding="@dimen/grid_8"
-        style="@style/drawerText"
-        android:text="Camera"/>
+        android:background="@color/colorBackground"
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/dialog_select_image_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_gallery"
-        android:padding="@dimen/grid_8"
-        style="@style/drawerText"
-        android:text="Gallery"/>
+        <TextView
+            android:id="@+id/dialog_select_image_camera"
+            style="@style/drawerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_photo_camera"
+            android:padding="@dimen/grid_8"
+            android:text="@string/dialog_select_image_camera" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/dialog_select_image_gallery"
+            style="@style/drawerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_gallery"
+            android:padding="@dimen/grid_8"
+            android:text="@string/dialog_select_iamge_gallery" />
+    </LinearLayout>
+
+</FrameLayout>

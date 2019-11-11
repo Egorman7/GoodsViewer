@@ -78,13 +78,6 @@ class GoodsListAdapter : RecyclerView.Adapter<GoodsListAdapter.ViewHolder>(){
                 onItemClicked?.invoke(item, position)
                 selectItem(position)
             }
-            itemView.setBackgroundColor(
-                ContextCompat.getColor(
-                    itemView.context,
-                    if (position == selectedItem) {
-                        R.color.colorSelectedItemBackground
-                    } else {
-                        R.color.colorBackgroundLight}))
         }
     }
 
@@ -105,6 +98,13 @@ class GoodsListAdapter : RecyclerView.Adapter<GoodsListAdapter.ViewHolder>(){
     inner class CollapsedViewHolder(itemView: View) : ViewHolder(itemView){
         override fun bind(item: Good, position: Int) {
             super.bind(item, position)
+            itemView.setBackgroundColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    if (position == selectedItem) {
+                        R.color.colorSelectedItemBackground
+                    } else {
+                        R.color.colorBackgroundLight}))
             Glide.with(itemView.context)
                 .load(item.getImageUrl())
                 .error(R.drawable.ic_broken_image)

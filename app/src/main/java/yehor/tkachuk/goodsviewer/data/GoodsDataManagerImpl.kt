@@ -4,6 +4,7 @@ import io.reactivex.Single
 import yehor.tkachuk.goodsviewer.api.MainApi
 import yehor.tkachuk.goodsviewer.model.Comment
 import yehor.tkachuk.goodsviewer.model.Good
+import yehor.tkachuk.goodsviewer.model.api.CommentResponse
 import yehor.tkachuk.goodsviewer.model.api.PostCommentRequest
 import yehor.tkachuk.goodsviewer.utils.UserManager
 
@@ -24,15 +25,9 @@ class GoodsDataManagerImpl(private val api: MainApi, private val userManager: Us
         return api.getComments(productId)
     }
 
-    override fun postComment(product: Int, rate: Int, text: String): Single<Boolean> {
-        return Single.create { emitter ->
-            if(userManager.getToken().isBlank()){
-                emitter.onSuccess(false)
-            } else {
-                api.postComment(userManager.getToken(), product, PostCommentRequest(rate, text)).map {
-                    it.reviewId != -1
-                }
-            }
-        }
+    override fun postComment(productId: Int, text: String, rate: Int): Single<CommentResponse> {
+        return api.postComment(userManager.getToken(), productId, PostCommentRequest(
+            rate, text
+        ))
     }
 }

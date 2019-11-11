@@ -2,7 +2,6 @@ package yehor.tkachuk.goodsviewer.view
 
 import android.animation.Animator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ import yehor.tkachuk.goodsviewer.viewmodel.MainViewModel
 class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
     private val viewModel by viewModel<ListFragmentViewModel>()
     private val adapter by lazy { GoodsListAdapter() }
-    private val pagerAdaper by lazy{ DetailPagerAdapter(childFragmentManager, listOf(
+    private val pagerAdapter by lazy{ DetailPagerAdapter(childFragmentManager, listOf(
         getString(R.string.page_title_detail), getString(R.string.page_title_comments)
     ))}
 
@@ -36,7 +35,7 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
         list_recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         list_recycler.adapter = adapter
         list_detail_tabs.setupWithViewPager(list_detail_pager)
-        list_detail_pager.adapter = pagerAdaper
+        list_detail_pager.adapter = pagerAdapter
         loadList()
         viewModel.listOfGoods.observe(viewLifecycleOwner, Observer {
             list_swipe_refresh.isRefreshing = false
@@ -51,13 +50,12 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
             loadList(true)
         }
 
-        adapter.onItemClicked = {good, pos ->
+        adapter.onItemClicked = {good, _ ->
             if(!adapter.isCollapsed()){
                 list_swipe_refresh.collapse(300){
                     adapter.collapse()
                 }
             }
-            Log.d("LIST", "${good.id}")
             loadDetailContainer(good)
         }
     }
@@ -70,11 +68,7 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
     private fun loadDetailContainer(good: Good){
         list_detail_container.visibility = View.VISIBLE
         list_detail_container.alpha = 1f
-//        list_detail_container.animate()
-//            .alpha(1f)
-//            .setDuration(300)
-//            .start()
-        pagerAdaper.setFragments(listOf(
+        pagerAdapter.setFragments(listOf(
             ListDetailFragment.createInstance(good),
             ListCommentsFragment.createInstance(good)
         ))
@@ -89,7 +83,7 @@ class ListFragment : BaseFragment<MainViewModel>(MainViewModel::class){
             .setListener(object: Animator.AnimatorListener{
                 override fun onAnimationRepeat(p0: Animator?) {}
                 override fun onAnimationEnd(p0: Animator?) {
-                    pagerAdaper.clear()
+                    pagerAdapter.clear()
                     list_detail_container.visibility = View.GONE
                 }
                 override fun onAnimationCancel(p0: Animator?) {}

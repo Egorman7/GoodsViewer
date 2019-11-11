@@ -7,6 +7,8 @@ class UserManagerImpl(private val prefs: SharedPreferences): UserManager {
     companion object{
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
+
+        private const val TOKEN_FORMAT = "Token %s"
     }
     private var token = ""
     override fun clear() {
@@ -36,6 +38,6 @@ class UserManagerImpl(private val prefs: SharedPreferences): UserManager {
     }
 
     override fun getToken(): String {
-        return token
+        return TOKEN_FORMAT.format(token)
     }
 }

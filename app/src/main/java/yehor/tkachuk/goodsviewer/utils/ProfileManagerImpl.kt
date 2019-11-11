@@ -59,6 +59,15 @@ class ProfileManagerImpl(private val context: Context, private val prefs: Shared
         }
     }
 
+    override fun clear(): Completable {
+        return Completable.fromCallable {
+            prefs.edit()
+                .remove(KEY_FIRST_NAME)
+                .remove(KEY_LAST_NAME)
+                .apply()
+        }
+    }
+
     private fun getFilePath(): String{
         return File(context.filesDir, AVATAR_FILENAME).absolutePath
     }

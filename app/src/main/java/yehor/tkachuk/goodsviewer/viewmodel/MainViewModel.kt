@@ -2,15 +2,14 @@ package yehor.tkachuk.goodsviewer.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import yehor.tkachuk.goodsviewer.base.BaseViewModel
-import yehor.tkachuk.goodsviewer.data.GoodsDataManager
 import yehor.tkachuk.goodsviewer.data.MainDataManager
-import yehor.tkachuk.goodsviewer.model.Good
+import yehor.tkachuk.goodsviewer.model.AuthResult
 import yehor.tkachuk.goodsviewer.model.Profile
 import yehor.tkachuk.goodsviewer.utils.SingleLiveEvent
 
 class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
     private var listCollapsed = false
-    val loggedIn = MutableLiveData<Boolean>().apply { value = false }
+    val loggedIn = MutableLiveData<AuthResult>().apply { value = AuthResult.empty() }
     val expandList = SingleLiveEvent<Unit>()
     val registerClicked = SingleLiveEvent<Unit>()
 
@@ -18,7 +17,11 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
 
     fun autoLogin(){
         subscribe(dataManager.autoLogin()){ logged ->
-            loggedIn.value = logged
+            loggedIn.value = logged.also {
+                if(it.state == AuthResult.State.LOGIN && !it.success){
+                    logOut()
+                }
+            }
         }
     }
 
@@ -49,7 +52,7 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
     fun saveProfile(name: String, surname: String){
         subscribe(dataManager.saveProfileData(name, surname)){
             profile.value = it
-            loggedIn.value = true
+            loadProfile()
         }
     }
 
@@ -77,5 +80,12 @@ class MainViewModel(private val dataManager: MainDataManager) : BaseViewModel(){
 
     fun clickRegister(){
         registerClicked.call()
+    }
+
+    fun logOut() {
+        complete(dataManager.logOut()){
+            removeAvatar()
+            loggedIn.value = AuthResult.empty()
+        }
     }
 }

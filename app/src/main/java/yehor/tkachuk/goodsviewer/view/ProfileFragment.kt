@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.dialog_select_image.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import yehor.tkachuk.goodsviewer.R
 import yehor.tkachuk.goodsviewer.base.BaseFragment
+import yehor.tkachuk.goodsviewer.utils.showDialog
 import yehor.tkachuk.goodsviewer.viewmodel.MainViewModel
 import java.io.File
 
@@ -86,44 +87,28 @@ class ProfileFragment : BaseFragment<MainViewModel>(MainViewModel::class){
     }
 
     private fun showRemoveDialog(){
-        context?.also {
-            val v = LayoutInflater.from(it).inflate(R.layout.dialog_remove_image, null ,false)
-            AlertDialog.Builder(it)
-                .setView(v)
-                .setCancelable(false)
-                .create().apply {
-                    v.dialog_remove_ok.setOnClickListener {
-                        sharedViewModel.removeAvatar()
-                        dismiss()
-                    }
-                    v.dialog_remove_cancel.setOnClickListener {
-                        dismiss()
-                    }
-                    window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    show()
-                }
-        }
+        context?.showDialog(R.layout.dialog_remove_image, {dialog, v ->
+            v.dialog_remove_ok.setOnClickListener {
+                sharedViewModel.removeAvatar()
+                dialog.dismiss()
+            }
+            v.dialog_remove_cancel.setOnClickListener {
+                dialog.dismiss()
+            }
+        })
     }
 
     private fun showChooseDialog(){
-        context?.also {
-            val v = LayoutInflater.from(it).inflate(R.layout.dialog_select_image, null, false)
-            AlertDialog.Builder(it)
-                .setView(v)
-                .setCancelable(true)
-                .create().apply {
-                    v.dialog_select_image_camera.setOnClickListener {
-                        launchCamera()
-                        dismiss()
-                    }
-                    v.dialog_select_image_gallery.setOnClickListener {
-                        launchGallery()
-                        dismiss()
-                    }
-                    window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    show()
-                }
-        }
+        context?.showDialog(R.layout.dialog_select_image, {dialog, v ->
+            v.dialog_select_image_camera.setOnClickListener {
+                launchCamera()
+                dialog.dismiss()
+            }
+            v.dialog_select_image_gallery.setOnClickListener {
+                launchGallery()
+                dialog.dismiss()
+            }
+        }, true)
     }
 
     private fun launchCamera(){
@@ -133,7 +118,7 @@ class ProfileFragment : BaseFragment<MainViewModel>(MainViewModel::class){
         } else {
             context?.also {
                 //tempFile = File(Environment.getExternalStorageDirectory(), "temp.jpg")
-                tempFile = File.createTempFile("temp", ".jpg", Environment.getExternalStorageDirectory())
+                tempFile = File.createTempFile("temp", ".jpg", context?.filesDir)
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                     putExtra(
                         MediaStore.EXTRA_OUTPUT,

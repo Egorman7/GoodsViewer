@@ -3,6 +3,7 @@ package yehor.tkachuk.goodsviewer.data
 import io.reactivex.Completable
 import io.reactivex.Single
 import yehor.tkachuk.goodsviewer.api.MainApi
+import yehor.tkachuk.goodsviewer.model.AuthResult
 import yehor.tkachuk.goodsviewer.model.Profile
 import yehor.tkachuk.goodsviewer.model.api.AuthRequest
 import yehor.tkachuk.goodsviewer.utils.ProfileManager
@@ -11,35 +12,42 @@ import yehor.tkachuk.goodsviewer.utils.UserManager
 class MainDataManagerImpl(private val api: MainApi, private val userManager: UserManager,
                           private val profileManager: ProfileManager) : MainDataManager{
 
-    override fun performLogin(username: String, password: String): Single<Boolean> {
+    override fun performLogin(username: String, password: String): Single<AuthResult> {
         return api.login(AuthRequest(username, password)).map { auth ->
             if(auth.success) {
                 userManager.saveLastLogin(username, password)
                 userManager.saveToken(auth.token)
+                AuthResult.loggedIn()
+            } else {
+                AuthResult.notLogged()
             }
-            auth.success
         }
     }
 
-    override fun autoLogin(): Single<Boolean> {
+    override fun autoLogin(): Single<AuthResult> {
         val request = userManager.getLastLogin()
         return if(request != null){
             api.login(request).map { auth ->
                 if(auth.success) {
                     userManager.saveToken(auth.token)
+                    AuthResult.loggedIn()
+                } else {
+                    userManager.clear()
+                    AuthResult.notLogged()
                 }
-                auth.success
             }
-        } else Single.just(false)
+        } else Single.just(AuthResult.empty())
     }
 
-    override fun register(username: String, password: String): Single<Boolean> {
+    override fun register(username: String, password: String): Single<AuthResult> {
         return api.register(AuthRequest(username, password)).map { auth ->
             if(auth.success){
                 userManager.saveLastLogin(username, password)
                 userManager.saveToken(auth.token)
+                AuthResult.registered()
+            } else {
+                AuthResult.notRegistered()
             }
-            auth.success
         }
     }
 
@@ -57,5 +65,11 @@ class MainDataManagerImpl(private val api: MainApi, private val userManager: Use
 
     override fun removeAvatar(): Completable {
         return profileManager.removeAvatar()
+    }
+
+    override fun logOut(): Completable {
+        return profileManager.clear().doOnComplete {
+            userManager.clear()
+        }
     }
 }

@@ -9,4 +9,5 @@ interface ProfileManager {
     fun getProfile(): Single<Profile>
     fun setAvatar(string: String): Single<Profile>
     fun removeAvatar(): Completable
+    fun clear(): Completable
 }

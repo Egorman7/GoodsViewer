@@ -2,10 +2,11 @@ package yehor.tkachuk.goodsviewer.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 
 class DetailPagerAdapter(fragmentManager: FragmentManager,
-                         private val titles: List<String>) : FragmentPagerAdapter(fragmentManager){
+                         private val titles: List<String>) : FragmentStatePagerAdapter(fragmentManager){
     private val fragments = mutableListOf<Fragment>()
 
     fun setFragments(newFragments: List<Fragment>){
@@ -31,5 +32,9 @@ class DetailPagerAdapter(fragmentManager: FragmentManager,
 
     override fun getPageTitle(position: Int): CharSequence? {
         return titles[position]
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
     }
 }

@@ -25,7 +25,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:alpha="0">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/list_detail_tabs"

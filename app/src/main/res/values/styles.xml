@@ -25,4 +25,11 @@
         <item name="android:drawablePadding">@dimen/grid_8</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
+
+    <style name="dialogButtonText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

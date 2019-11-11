@@ -19,4 +19,18 @@
     <string name="profile_hint_name">Name</string>
     <string name="profile_hint_surname">Surname</string>
     <string name="profile_button_save">Save</string>
+    <string name="toast_exit">Tap "Back" one more time to exit</string>
+    <string name="toast_register_success">Registration successful!</string>
+    <string name="toast_register_error">Registration error!</string>
+    <string name="toast_login_success">Welcome to Goods Viewer!</string>
+    <string name="toast_login_error">Login error!</string>
+    <string name="dialog_remove_image_message">Are you sure want to delete photo?</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_comment_title">Post comment</string>
+    <string name="dialog_comment_label">Comment:</string>
+    <string name="dialog_send">Send</string>
+    <string name="toast_comment_posted">Comment posted!</string>
+    <string name="dialog_select_image_camera">Camera</string>
+    <string name="dialog_select_iamge_gallery">Gallery</string>
 </resources>

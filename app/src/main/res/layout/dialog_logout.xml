@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/grid_64"
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/colorBackground"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/grid_64"
-        android:layout_gravity="center">
+        android:padding="@dimen/grid_8"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_remove_image_message"
+            android:text="Are you sure want to log out?\nYour profile will be deleted!"
+            android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_16"
-            android:padding="@dimen/grid_8"
-            android:layout_marginTop="@dimen/grid_8"
-            android:gravity="center"/>
+            android:textSize="@dimen/text_16"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/grid_16"
-            android:layout_marginBottom="@dimen/grid_8">
+            android:layout_marginTop="@dimen/grid_16">
             <TextView
-                android:id="@+id/dialog_remove_cancel"
+                android:id="@+id/dialog_logout_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/dialog_cancel"
@@ -35,12 +34,12 @@
                 style="@style/dialogButtonText"/>
 
             <TextView
-                android:id="@+id/dialog_remove_ok"
+                android:id="@+id/dialog_logout_ok"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/dialog_ok"
-                style="@style/dialogButtonText"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@style/dialogButtonText"/>
         </LinearLayout>
     </LinearLayout>
 

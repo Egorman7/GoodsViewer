@@ -1,19 +1,32 @@
 package yehor.tkachuk.goodsviewer.view
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_logout.view.*
 import kotlinx.android.synthetic.main.drawer_list.view.*
 import yehor.tkachuk.goodsviewer.R
 import yehor.tkachuk.goodsviewer.base.BaseActivity
+import yehor.tkachuk.goodsviewer.model.AuthResult
+import yehor.tkachuk.goodsviewer.utils.showDialog
+import yehor.tkachuk.goodsviewer.utils.toast
 import yehor.tkachuk.goodsviewer.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
+    companion object{
+        private const val EXIT_INTERVAL = 2000L
+    }
+
+    private var lastPressTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +46,28 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
             setFragment(FragmentRegister())
         })
 
-        viewModel.loggedIn.observe(this, Observer { success ->
-            if(success){
-                setFragment(ListFragment())
-                loggedIn()
-            } else {
-                loggedOut()
+        viewModel.loggedIn.observe(this, Observer { result ->
+            when(result.state){
+                AuthResult.State.EMPTY -> {loggedOut()}
+                AuthResult.State.REGISTER -> {
+                    if(result.success){
+                        toast(getString(R.string.toast_register_success))
+                        loggedIn()
+                    } else {
+                        loggedOut()
+                        toast(getString(R.string.toast_register_error))
+                    }
+                }
+                AuthResult.State.LOGIN -> {
+                    if(result.success){
+                        toast(getString(R.string.toast_login_success))
+                        setFragment(ListFragment())
+                        loggedIn()
+                    } else {
+                        loggedOut()
+                        toast(getString(R.string.toast_login_error))
+                    }
+                }
             }
         })
 
@@ -74,7 +103,12 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
 
     override fun onBackPressed() {
         if(!viewModel.expandIfCollapsed()) {
-            super.onBackPressed()
+            if(lastPressTime + EXIT_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+            } else {
+                toast(getString(R.string.toast_exit))
+                lastPressTime = System.currentTimeMillis()
+            }
         }
     }
 
@@ -97,7 +131,15 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class) {
     }
 
     private fun showLogoutDialog(){
-
+        showDialog(R.layout.dialog_logout,{ dialog, view ->
+            view.dialog_logout_cancel.setOnClickListener {
+                dialog.dismiss()
+            }
+            view.dialog_logout_ok.setOnClickListener {
+                viewModel.logOut()
+                dialog.dismiss()
+            }
+        })
     }
 
     private fun loggedIn(){
